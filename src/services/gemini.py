@@ -6,7 +6,7 @@ from ..models.model import Menu
 
 load_dotenv()
 
-API_KEY = os.getenv('GEMINI_API_KEY')
+API_KEY = os.getenv('GEMINI_API_KEY_2')
 
 class Gemini:
     def __init__(self):
@@ -73,6 +73,45 @@ class Gemini:
         )
         return response.text
     
+    def natural_language_query(self, query):
+        print("nl query called")
+        prompt = f"""
+        You are an AI that converts natural language search queries 
+        into SQL-style filter instructions for a menu database.
+
+        The menu schema:
+        - name (string)
+        - category (string)
+        - calories (float)
+        - price (float)
+        - description (string)
+        - ingredients (string[]) # its an array of strings
+
+        Given the user's query: "{query}"
+
+        Extract these fields:
+
+        
+        "name_contains": "[]",
+        "category": "string",
+        "min_price": "float",
+        "max_price": "float",
+        "min_calories": "float",
+        "max_calories": "float"
+        
+        available categories are: drinks, appetizers, desserts, main course
+        for name_contains, can you do it in bahasa? so, the query might say 'coffee', but put 'kopi' in it
+        for prices and calories, just accept any number
+
+        Only extract filters explicitly mentioned (except category, probably). No guessing.
+        Respond in valid JSON only.
+        """
+
+        response = self.client.models.generate_content(
+            model="gemini-2.0-flash-lite",
+            contents=prompt
+        )
+        return response.text
     
 
 
