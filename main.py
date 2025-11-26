@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from src.database.db import init_app
-from src.api.routes import menu_filters_pagination, menu_id, menu_post, menu_group_by_cat, menu_search
+from src.api.routes import menu_filters_pagination, menu_post, menu_group_by_cat, menu_put_delete, menu_search
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +12,7 @@ CORS(app)
 app = init_app(app)
 
 app.register_blueprint(menu_post.bp, url_prefix="/api")
-app.register_blueprint(menu_id.bp, url_prefix="/api")
+app.register_blueprint(menu_put_delete.bp, url_prefix="/api")
 app.register_blueprint(menu_filters_pagination.bp, url_prefix="/api")
 app.register_blueprint(menu_group_by_cat.bp, url_prefix="/api")
 app.register_blueprint(menu_search.bp, url_prefix="/api")

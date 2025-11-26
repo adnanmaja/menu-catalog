@@ -27,13 +27,21 @@ def menu_group_by_category():
             ]
 
         if mode == 'list':
-            results = Menu.query.order_by(Menu.category).limit(per_category).all()
+            results = Menu.query.order_by(Menu.category).all()
 
+            response_data = []
             for category, items in groupby(results, key=attrgetter('category')):
-                response_data = [
-                    {'category': category, 
-                    'list': [item.name for item in items]}
-                ]
+                items_list = list(items)
+                try:
+                    limit = int(per_category)
+                    items_list = items_list[:limit]
+                except ValueError:
+                    pass
+                    
+                response_data.append({
+                    'category': category,
+                    'list': [item.name for item in items_list]
+                })
         
         return jsonify(response_data), 200
 

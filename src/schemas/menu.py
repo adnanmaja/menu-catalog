@@ -1,13 +1,13 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 class MenuCreate(BaseModel):
     name: str
-    category: str
+    category: Optional[str] = None
     calories: float
     price: float
     ingredients: List[str]
-    description: str
+    description: Optional[str] = None
 
 
 class MenuResponse(BaseModel):
@@ -18,4 +18,5 @@ class MenuResponse(BaseModel):
     price: float
     ingredients: List[str]
     description: str
+    alergen: Optional[str] = None
 
