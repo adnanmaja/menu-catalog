@@ -18,5 +18,5 @@ class MenuResponse(BaseModel):
     price: float
     ingredients: List[str]
     description: str
-    alergen: Optional[str] = None
+    allergen: Optional[str] = None
 

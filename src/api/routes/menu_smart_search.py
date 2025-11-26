@@ -4,6 +4,7 @@ from ...models.model import Menu
 from ...schemas.menu import MenuResponse, MenuCreate
 from ...services.gemini import Gemini
 from ...services.json_to_sql import json_to_sql
+from ...services.request_parser import parse_filters
 import json
 from google.genai import errors
 
@@ -11,12 +12,12 @@ bp = Blueprint('smart_search', __name__)
 gemini = Gemini()
 
 @bp.route('/menu/smart', methods=['GET'])
-def menu_smart_search():
+def menu_smart_search(): 
     try:
-        user_query = request.args.get('query', '')
+        filters = parse_filters(request)
 
         try:
-            response_text = gemini.natural_language_query(query=user_query)
+            response_text = gemini.natural_language_query(query=filters['user_query'])
         except errors.APIError as e:
             return jsonify({'Gemini API error': e.message}), e.code
         

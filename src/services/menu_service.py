@@ -39,7 +39,7 @@ class MenuService:
 
         return query
     
-    def process_items(self, items, language, alergen_tags):
+    def process_items(self, items, language, allergen_tags):
         response_data = []
 
         for item in items:
@@ -48,12 +48,12 @@ class MenuService:
                 if language == 'id':
                     item.description = self.gemini.translate_description(menu=item, language='Bahasa Indonesia')
 
-                alergen = None
+                allergen = None
                 
-                # gemini alergen identification
-                if alergen_tags:
-                    alergen = self.gemini.classify_alergen(menu=item)
-                    print(f"menu_service, gemini response: {alergen}")
+                # gemini allergen identification
+                if allergen_tags:
+                    allergen = self.gemini.classify_allergen(menu=item)
+                    print(f"menu_service, gemini response: {allergen}")
    
                 item_data = {
                     'id': item.id,
@@ -65,8 +65,8 @@ class MenuService:
                     'description': item.description
                 }
                 
-                if alergen is not None:
-                    item_data['alergen'] = alergen
+                if allergen is not None:
+                    item_data['allergen'] = allergen
                     
                 response_data.append(item_data)
                 

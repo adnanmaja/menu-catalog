@@ -8,6 +8,7 @@ def parse_filters(request):
         'page': request.args.get('page', 1, type=int),
         'per_page': request.args.get('per_page', 10, type=int),
         'sort': request.args.get('sort', 'price:asc'),
-        'alergen_tags': request.args.get('alergen_tags', False, type=bool),
-        'language': request.args.get('language', 'en').strip().lower()
+        'allergen_tags': request.args.get('allergen_tags', False, type=bool),
+        'language': request.args.get('language', 'en').strip().lower(),
+        'user_query': request.args.get('query', '')
     }

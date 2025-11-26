@@ -44,9 +44,9 @@ class Gemini:
         )
         return response.text.strip().lower()
         
-    def classify_alergen(self, menu):
+    def classify_allergen(self, menu):
         prompt = f""" 
-        Any alergens in the item below?
+        Any allergens in the item below?
         Name: {menu.name}
         Category: {menu.category}
         Ingredients: {menu.ingredients}
