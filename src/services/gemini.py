@@ -60,6 +60,19 @@ class Gemini:
         )
         return response.text.strip().lower()
     
+    def translate_description(self, menu, language):
+        prompt = f""" 
+        Can you translate this description into {language} language?
+        Description: {menu.description}
+        just give me the translation, no need to explain anything, keep it concise.
+        """
+    
+        response = self.client.models.generate_content(
+            model="gemini-2.0-flash-lite",
+            contents=prompt
+        )
+        return response.text
+    
     
 
 

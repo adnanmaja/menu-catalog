@@ -7,6 +7,7 @@ from google.genai import errors
 import logging
 
 bp = Blueprint('filters_pagination', __name__)
+gemini = Gemini()
 
 @bp.route("/menu", methods=['GET'])
 def menu_filters_pagination():
@@ -21,6 +22,7 @@ def menu_filters_pagination():
     per_page = request.args.get('per_page', 10, type=int)
     sort = request.args.get('sort', 'price:asc')
     alergen_tags = request.args.get('alergen_tags', False, type=bool)
+    language = request.args.get('language', 'en').strip().lower()
 
     query = Menu.query
 
@@ -55,6 +57,11 @@ def menu_filters_pagination():
         error_out=False
     )
 
+    # gemini description translation (id)
+    for item in pagination.items:
+        if language == 'id':
+            item.description = gemini.translate_description(menu=item, language='bahasa indonesia')
+
     # gemini alergen tags
     if not alergen_tags:   
         response_data = [
@@ -72,7 +79,6 @@ def menu_filters_pagination():
         ]
 
     try:
-        gemini = Gemini()
         response_data = [
                 MenuResponse(
                     id=item.id,
