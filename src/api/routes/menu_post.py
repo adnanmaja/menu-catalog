@@ -19,10 +19,10 @@ def create_menu():
         if not data:
             return jsonify({'error': 'Nggak ada JSON yg diberikan'}), 400
         
-        try:
+        try: 
             menu_data = MenuCreate(**data)
         except ValidationError as e:
-            return jsonify({'error': e.errors()}), 500 # kalo description sama category kosong gpp, yang penting string
+            return jsonify({'error': e.errors()}), 400 # kalo description sama category kosong gpp, yang penting string
 
         if Menu.query.filter_by(name=menu_data.name).first():
             return jsonify({'error': 'Menu sudah ada'}), 400
@@ -40,7 +40,7 @@ def create_menu():
         # gemini generated category
         if ai_category or menu_data.category is None:
             print(f"ai_cat called: {menu_data.category}")
-            try: 
+            try:
                 menu_data.category = gemini.generate_category(menu=menu_data)
                 print(menu_data.category)
             except errors.APIError as e:

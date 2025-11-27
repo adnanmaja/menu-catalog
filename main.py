@@ -24,7 +24,7 @@ def root():
 
 @app.route('/routes', methods=['GET'])
 def list_routes():
-    try: 
+    try:    
         routes = []
         for rule in app.url_map.iter_rules():
             routes.append({

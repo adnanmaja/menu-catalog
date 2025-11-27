@@ -21,6 +21,10 @@ def menu_filters_pagination():
         query = Menu.query
 
         query = menu_service.query_filters(query, filters)
+
+        if not query:
+            return jsonify({'error': 'Menu tidak ditemukan'}), 404
+        
         query = menu_service.sorting(query, filters['sort'])
         print("sorting donee")
 
@@ -33,7 +37,7 @@ def menu_filters_pagination():
         response_data = menu_service.process_items(
             items=pagination.items, 
             language=filters['language'], 
-            alergen_tags=filters['alergen_tags'])
+            allergen_tags=filters['allergen_tags'])
 
         return jsonify({
             'items': response_data,

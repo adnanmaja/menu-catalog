@@ -19,4 +19,3 @@ class MenuResponse(BaseModel):
     ingredients: List[str]
     description: str
     allergen: Optional[str] = None
-
