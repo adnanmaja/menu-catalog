@@ -8,7 +8,8 @@ This document provides comprehensive documentation for all API routes in the Men
 
 ## Base Configuration
 
-- **Base URL**: `/api`
+- **Base URL**: `https://menu-catalog.orangesand-df480b09.southeastasia.azurecontainerapps.io` 
+- **Url Prefix**: `/api` except for `/` and `/routes`
 - **Framework**: Flask with SQLAlchemy ORM
 - **Database**: PostgreSQL (via SQLAlchemy)
 - **AI Integration**: Google Gemini API
