@@ -13,6 +13,7 @@ This document provides comprehensive documentation for all API routes in the Men
 - **Framework**: Flask with SQLAlchemy ORM
 - **Database**: PostgreSQL (via SQLAlchemy)
 - **AI Integration**: Google Gemini API
+- **Notes**: First requests after periods of inactivity may take longer to respond due to cold starts.
 
 ---
 
